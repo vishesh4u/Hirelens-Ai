@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HireLens AI — Intelligent Resume Screening &amp; Candidate Shortlisting</title>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+<div id="app">
+  <!-- Rendered as plain HTML so the login screen is visible even if JavaScript fails. -->
+  <div class="login-wrap" id="loginScreen">
+    <div class="login-brand">
+      <div class="logo"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:24px;height:24px;color:var(--accent)"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5M8 11l2 2 4-4"/></svg><span>HireLens <b>AI</b></span></div>
+      <h1>Intelligent candidate screening for modern recruiting teams.</h1>
+      <p class="lede">Screen resumes, rank candidates and document hiring decisions with transparent, explainable scoring.</p>
+      <ul class="featlist">
+        <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4 10-10"/></svg><div>Explainable candidate matching<span class="small">Every score shows the skills, experience and evidence behind it.</span></div></li>
+        <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4 10-10"/></svg><div>Structured screening<span class="small">Consistent criteria applied to every candidate, on every role.</span></div></li>
+        <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4 10-10"/></svg><div>Evidence-backed insights<span class="small">Screening summaries cite the actual resume content.</span></div></li>
+      </ul>
+    </div>
+    <div class="login-card">
+      <form id="loginForm" novalidate>
+        <h2 style="margin-bottom:4px" id="loginTitle">Sign in to HireLens</h2>
+        <p class="muted small" style="margin-bottom:18px" id="loginSub">Enter your credentials to access your workspace.</p>
+        <div id="nameField" style="display:none"><label for="regName">Full name</label><input id="regName" type="text" autocomplete="name"></div>
+        <label for="email">Email</label>
+        <input id="email" type="email" value="demo@hirelens.ai" autocomplete="username">
+        <label for="password">Password</label>
+        <input id="password" type="password" value="password" autocomplete="current-password">
+        <p class="form-err" id="loginErr" role="alert"></p>
+        <button type="submit" class="btn primary block" id="loginSubmitBtn">Sign In</button>
+        <button type="button" class="btn block" id="demoBtn">Continue with Demo Account</button>
+        <p class="hint" id="loginHint">Demo credentials: demo@hirelens.ai / password. If the backend is unreachable, these also work offline.</p>
+        <p class="small" style="text-align:center;margin-top:10px"><a href="#" id="authToggle">New here? Create an account</a></p>
+      </form>
+    </div>
+</div>
+<div id="toasts" aria-live="polite"></div>
+<div id="devErr" hidden role="alert"><b>Developer error:</b> <span id="devErrMsg"></span>
+  <button type="button" onclick="try{localStorage.removeItem('hirelens_demo_v2')}catch(e){}location.reload()">Reset Application Data</button></div>
+<noscript><p style="position:fixed;bottom:0;left:0;right:0;background:#3a0f18;color:#fff;padding:8px 16px;margin:0">JavaScript is disabled. Enable it to use HireLens AI.</p></noscript>
+
+<script>
+/* Error surface. Kept in its own script block so it still runs if the app script has a syntax error. */
+function showDevError(msg){var b=document.getElementById('devErr'),m=document.getElementById('devErrMsg');if(!b||!m)return;m.textContent=String(msg);b.hidden=false;}
+window.onerror=function(message,src,line,col){showDevError(message+(line?' (line '+line+(col?':'+col:'')+')':''));return false;};
+window.onunhandledrejection=function(e){showDevError('Unhandled promise rejection: '+((e.reason&&e.reason.message)||e.reason));};
+window.addEventListener('unhandledrejection',function(e){showDevError('Unhandled promise rejection: '+((e.reason&&e.reason.message)||e.reason));});
+</script>
+
+<!-- Classic scripts, order matters (each file only depends on files above it at load time). -->
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/state.js"></script>
+<script src="js/scoring.js"></script>
+<script src="js/router.js"></script>
+<script src="js/views.js"></script>
+<script src="js/actions.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
